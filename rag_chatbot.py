@@ -1,4 +1,13 @@
 import os
+import sys
+
+# Try importing dotenv for automatic .env loading
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
@@ -9,13 +18,26 @@ from langchain_core.runnables import RunnablePassthrough
 import gradio as gr
 
 # ==========================================
-# 1. CONFIGURATION & API KEY
+# 1. CONFIGURATION & API KEY SETUP
 # ==========================================
 DEFAULT_PDF_PATH = "RayOptics.pdf"
 
-# Set your Google Gemini API key here or via environment variable
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "YOUR_GEMINI_API_KEY_HERE")
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+def setup_api_key():
+    """Ensures a valid Google Gemini API Key is set in environment."""
+    api_key = os.getenv("GOOGLE_API_KEY", "").strip()
+    placeholder_keys = ["YOUR_GEMINI_API_KEY_HERE", "YOUR_GOOGLE_API_KEY", ""]
+    
+    if api_key in placeholder_keys:
+        print("\n=======================================================")
+        print(" [!] GOOGLE_API_KEY environment variable is missing.")
+        print(" Get a free API key at: https://aistudio.google.com/")
+        print("=======================================================")
+        api_key = input("Enter your Google Gemini API Key: ").strip()
+        if not api_key:
+            print("Error: A valid API Key is required to run the chatbot.")
+            sys.exit(1)
+    
+    os.environ["GOOGLE_API_KEY"] = api_key
 
 
 # ==========================================
@@ -77,6 +99,8 @@ Helpful Answer: """
 # 4. MAIN EXECUTION
 # ==========================================
 if __name__ == "__main__":
+    setup_api_key()
+
     prompt_msg = f"Enter PDF File Path (press Enter for default '{DEFAULT_PDF_PATH}'): "
     pdf_path = input(prompt_msg).strip()
 

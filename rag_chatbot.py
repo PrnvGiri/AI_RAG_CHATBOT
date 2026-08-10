@@ -9,8 +9,10 @@ from langchain_core.runnables import RunnablePassthrough
 import gradio as gr
 
 # ==========================================
-# 1. SET YOUR API KEY
+# 1. CONFIGURATION & API KEY
 # ==========================================
+DEFAULT_PDF_PATH = "RayOptics.pdf"
+
 # Set your Google Gemini API key here or via environment variable
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "YOUR_GEMINI_API_KEY_HERE")
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
@@ -19,9 +21,9 @@ os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 # ==========================================
 # 2. LOAD AND SPLIT PDF DOCUMENT
 # ==========================================
-def load_and_split(filepath):
+def load_and_split(filepath=DEFAULT_PDF_PATH):
     """Loads PDF file and splits text into chunks."""
-    print("Loading PDF document...")
+    print(f"Loading PDF document from: {filepath}")
     loader = PyPDFLoader(filepath)
     docs = loader.load()
 
@@ -75,7 +77,11 @@ Helpful Answer: """
 # 4. MAIN EXECUTION
 # ==========================================
 if __name__ == "__main__":
-    pdf_path = input("Enter PDF File Path: ").strip()
+    prompt_msg = f"Enter PDF File Path (press Enter for default '{DEFAULT_PDF_PATH}'): "
+    pdf_path = input(prompt_msg).strip()
+
+    if not pdf_path:
+        pdf_path = DEFAULT_PDF_PATH
 
     if not os.path.exists(pdf_path):
         print(f"Error: File '{pdf_path}' not found.")
@@ -95,7 +101,7 @@ if __name__ == "__main__":
 
             demo = gr.ChatInterface(
                 fn=chat_fn,
-                textbox=gr.Textbox(placeholder="Ask a question about your PDF...")
+                textbox=gr.Textbox(placeholder="Ask a question about Ray Optics or your PDF...")
             )
             demo.launch(share=True)
         else:

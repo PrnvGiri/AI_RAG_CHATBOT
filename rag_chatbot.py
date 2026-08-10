@@ -23,7 +23,17 @@ import gradio as gr
 DEFAULT_PDF_PATH = "RayOptics.pdf"
 
 def setup_api_key():
-    """Ensures a valid Google Gemini API Key is set in environment."""
+    """Ensures a valid Google Gemini API Key is set in environment or loaded from .env."""
+    # Check .env file directly if not loaded yet
+    if not os.getenv("GOOGLE_API_KEY") and os.path.exists(".env"):
+        with open(".env", "r") as f:
+            for line in f:
+                if line.strip().startswith("GOOGLE_API_KEY"):
+                    key = line.split("=", 1)[1].strip().strip("'\"")
+                    if key:
+                        os.environ["GOOGLE_API_KEY"] = key
+                        break
+
     api_key = os.getenv("GOOGLE_API_KEY", "").strip()
     placeholder_keys = ["YOUR_GEMINI_API_KEY_HERE", "YOUR_GOOGLE_API_KEY", ""]
     

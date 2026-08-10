@@ -1,48 +1,34 @@
-# 📄 Simple RAG Chatbot (PDF Question Answering)
+# 🤖 Simple AI RAG Chatbot
 
-A simple Python application that reads any PDF file and lets you ask questions about it using **Google Gemini** and **LangChain**.
+A minimal RAG (Retrieval-Augmented Generation) application that reads `RayOptics.pdf` and launches an interactive Gradio Chat UI using **Google Gemini** and **LangChain**.
 
 ---
 
-## 🚀 Quick Setup
+## ⚡ Quick Start
 
-### 1. Install Dependencies
-
-Run this command in your terminal:
-
+### 1. Install Requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Set Your Google API Key
+### 2. Add API Key to `.env`
+Create a `.env` file in this directory and add your key:
+```env
+GOOGLE_API_KEY=your_gemini_api_key_here
+```
 
-**Linux / macOS:**
+### 3. Run the Chatbot
 ```bash
-export GOOGLE_API_KEY="your_gemini_api_key_here"
+python3 rag_chatbot.py
 ```
 
-**Windows:**
-```cmd
-set GOOGLE_API_KEY="your_gemini_api_key_here"
-```
+That's it! It automatically loads `RayOptics.pdf`, builds the embeddings, and launches the Gradio Web Chat Interface in your browser.
 
 ---
 
-## 💡 How to Run
+## 📁 Repository Files
 
-Run the python file:
-
-```bash
-python rag_chatbot.py
-```
-
-1. Enter the path to your PDF file when prompted.
-2. Choose whether to run in **Terminal (CLI)** or **Web Interface (Gradio UI)**.
-
----
-
-## 📁 Files in This Project
-
-- **[rag_chatbot.py](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/rag_chatbot.py)**: Python script to load PDF, build RAG chain, and chat.
-- **[requirements.txt](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/requirements.txt)**: List of required Python packages.
+- **[rag_chatbot.py](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/rag_chatbot.py)**: Clean & simple Python script.
+- **[RayOptics.pdf](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/RayOptics.pdf)**: Target PDF document.
+- **[requirements.txt](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/requirements.txt)**: Python dependencies.
 - **[RagImplementation7thJune2026.ipynb](file:///Users/pranav/PRNV/Programs/AI_RAG_ChatBot/RagImplementation7thJune2026.ipynb)**: Original Jupyter Notebook.

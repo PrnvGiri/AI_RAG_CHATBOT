@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+
+# Chroma vector database storage
+.chroma/
+chroma_db/
+
+# Checkpoints & Cache
+.ipynb_checkpoints
+.DS_Store
+
+# PDFs (optional, or remove if user wants pdfs tracked)
+*.pdf

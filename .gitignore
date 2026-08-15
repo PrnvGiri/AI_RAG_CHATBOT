@@ -17,5 +17,9 @@ chroma_db/
 .ipynb_checkpoints
 .DS_Store
 
-# PDFs (optional, or remove if user wants pdfs tracked)
+# Gradio
+.gradio/
+
+# PDFs (exclude except RayOptics.pdf)
 *.pdf
+!RayOptics.pdf

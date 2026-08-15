@@ -100,9 +100,10 @@ Required packages:
 - `python-dotenv`
 
 ### Step 3: Set Up Environment Variables
-Create a file named `.env` in the root directory of the project. Add your Google Gemini API key:
+Create a file named `.env` in the root directory of the project. Add your Gemini API key:
 ```env
-GOOGLE_API_KEY=your_actual_google_gemini_api_key_here
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+GOOGLE_API_KEY=your_actual_gemini_api_key_here
 ```
 Note: You can get a free Gemini API Key from Google AI Studio.
 
@@ -116,7 +117,7 @@ python3 rag_chatbot.py
 ```
 
 The script will automatically:
-1. Read `GOOGLE_API_KEY` from your `.env` file.
+1. Read `GEMINI_API_KEY` / `GOOGLE_API_KEY` from your `.env` file.
 2. Load and split `RayOptics.pdf` into text chunks.
 3. Embed chunks into the Chroma vector database.
 4. Launch the Gradio Web Chat Interface.
